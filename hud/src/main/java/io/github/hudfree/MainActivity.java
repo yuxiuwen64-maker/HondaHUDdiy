@@ -64,7 +64,8 @@ public class MainActivity extends Activity {
 
         TextView hint = new TextView(this);
         hint.setText("未导航时显示歌名与歌手\n"
-                + "日志：/data/data/io.github.hudfree/files/hud.log");
+                + "日志：/data/data/io.github.hudfree/files/hud.log\n"
+                + "项目：github.com/yuxiuwen64-maker/HondaHUDdiy");
         hint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         hint.setTextColor(Color.GRAY);
         root.addView(hint, lp());
