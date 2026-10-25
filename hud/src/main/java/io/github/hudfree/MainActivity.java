@@ -63,8 +63,7 @@ public class MainActivity extends Activity {
         root.addView(title, lp());
 
         TextView hint = new TextView(this);
-        hint.setText("无校验 · 无联网 · 无自毁\n"
-                + "HUD 显示当前播放的歌名与歌手（来自媒体会话）\n"
+        hint.setText("未导航时显示歌名与歌手\n"
                 + "日志：/data/data/io.github.hudfree/files/hud.log");
         hint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         hint.setTextColor(Color.GRAY);
