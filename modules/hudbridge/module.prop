@@ -1,8 +1,8 @@
 id=hudbridge_free
-name=高德桥接 HUD（自由版）
+name=HUDdiy
 version=v1.7
 versionCode=8
-description=HUD 应用 priv-app 化 + 开机自启。无校验、无联网、无自毁。
+description=仪表显示导航与歌名（priv-app + 开机自启）
 
 
 
