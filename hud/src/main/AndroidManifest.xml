@@ -11,7 +11,8 @@
 
     <application
         android:allowBackup="false"
-        android:label="HUDdiy">
+        android:label="HUDdiy"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
         <activity
             android:name=".MainActivity"
