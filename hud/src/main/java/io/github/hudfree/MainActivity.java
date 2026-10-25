@@ -57,6 +57,19 @@ public class MainActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setPadding(pad, pad, pad, pad);
 
+        Button back = new Button(this);
+        back.setText("← 返回");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        LinearLayout.LayoutParams backLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        root.addView(back, backLp);
+
         TextView title = new TextView(this);
         title.setText("HUDdiy");
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
