@@ -2,7 +2,7 @@
 
 ## 安装
 
-1. Magisk → 模块 → 从本地安装 → `release/hudbridge.zip` → 重启。
+1. Magisk → 模块 → 从本地安装 → `release/HUDdiy-Magisk.zip` → 重启。
 2. 打开「HUDdiy」。
 3. 打开「开机自动运行」，点「保存并启动」。
 4. 点「授权通知访问」，在系统列表里允许「HUDdiy」。

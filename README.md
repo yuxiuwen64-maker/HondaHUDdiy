@@ -23,7 +23,7 @@ release/                  已编译 APK / 模块
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools/build-apk.ps1 `
-  -Module hud -Package io.github.hudfree -OutName hud-free
+  -Module hud -Package io.github.hudfree -OutName HUDdiy
 
 python tools/build-modules.py
 ```
@@ -39,7 +39,7 @@ gradle :hud:assembleRelease
 
 ## 安装
 
-1. Magisk 刷入 `release/hudbridge.zip`，重启。
+1. Magisk 刷入 `release/HUDdiy-Magisk.zip`，重启。
 2. 打开「HUDdiy」，开启「开机自动运行」并保存。
 3. 授予「通知访问」权限（显示歌名需要）。
 4. 高德车机版开始导航即可。
