@@ -5,7 +5,7 @@ POSTFSDATA=false
 PROPFILE=false
 print_modname() {
   ui_print "*******************************"
-  ui_print "  高德桥接 HUD（自由版）"
+  ui_print "  hondahuddiy"
   ui_print "*******************************"
 }
 on_install() {

@@ -3,12 +3,12 @@
 PKG=io.github.hudfree
 ACT=$PKG/.MainActivity
 PROPS=/data/local/tmp/car_props.txt
-LOG=/data/adb/hudbridge_free.log
+LOG=/data/adb/hudbridge_diy.log
 
 log() { echo "$(date '+%F %T') $*" >> "$LOG" 2>/dev/null; }
 
 # 单实例：这台 Magisk 会把 service.sh 启动两次
-for p in $(pgrep -f "hudbridge_free/service.sh" 2>/dev/null); do
+for p in $(pgrep -f "hudbridge_diy/service.sh" 2>/dev/null); do
   [ "$p" != "$$" ] && kill -9 "$p" 2>/dev/null
 done
 
