@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HUD 自由版</string>
+    <string name="a11y_desc">读取音乐应用界面上已显示的歌词，用于在车机 HUD 上显示。</string>
+</resources>

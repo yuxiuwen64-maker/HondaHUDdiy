@@ -1,0 +1,8 @@
+build-manual/
+dist/
+.gradle/
+local.properties
+*.idsig
+*.log
+tools/debug.keystore
+modules/hudbridge/system/product/priv-app/HudBridge/*.apk

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <privapp-permissions package="io.github.hudfree">
+        <permission name="android.car.permission.CAR_MILEAGE"/>
+        <permission name="android.car.permission.CAR_VENDOR_EXTENSION"/>
+        <permission name="android.car.permission.READ_VEHICLE_STATE"/>
+    </privapp-permissions>
+</permissions>
