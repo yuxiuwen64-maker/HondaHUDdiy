@@ -70,7 +70,7 @@ public class HudService extends Service {
                     new NotificationChannel(CHANNEL, "HUD", NotificationManager.IMPORTANCE_MIN));
         }
         Notification n = new Notification.Builder(this, CHANNEL)
-                .setContentTitle("HUD 自由版")
+                .setContentTitle("HUDdiy")
                 .setContentText("运行中")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setOngoing(true)

@@ -11,7 +11,7 @@
 
     <application
         android:allowBackup="false"
-        android:label="HUD 自由版">
+        android:label="HUDdiy">
 
         <activity
             android:name=".MainActivity"

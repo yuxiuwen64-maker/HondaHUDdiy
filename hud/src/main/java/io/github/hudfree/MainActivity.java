@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         root.setPadding(pad, pad, pad, pad);
 
         TextView title = new TextView(this);
-        title.setText("HUD 自由版");
+        title.setText("HUDdiy");
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         root.addView(title, lp());
 

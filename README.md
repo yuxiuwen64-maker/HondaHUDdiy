@@ -40,7 +40,7 @@ gradle :hud:assembleRelease
 ## 安装
 
 1. Magisk 刷入 `release/hudbridge.zip`，重启。
-2. 打开「HUD 自由版」，开启「开机自动运行」并保存。
+2. 打开「HUDdiy」，开启「开机自动运行」并保存。
 3. 授予「通知访问」权限（显示歌名需要）。
 4. 高德车机版开始导航即可。
 
