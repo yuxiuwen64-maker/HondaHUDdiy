@@ -58,7 +58,7 @@ public class NavBridge extends BroadcastReceiver {
             return;
         }
         writer.nav(lastRoad, lastDist, lastDir, lastIdx, color);
-        writer.arrow(maneuverType(lastIcon), 0);
+        writer.arrow(maneuverType(lastIcon), turnAngle(lastIcon));
         long now = System.currentTimeMillis();
         if (now - lastRefreshLog > 5000) {
             lastRefreshLog = now;
@@ -98,8 +98,14 @@ public class NavBridge extends BroadcastReceiver {
         }
 
         int icon = intent.getIntExtra("ICON", -1);
-        int dist = intent.getIntExtra("SEG_REMAIN_DIS",
-                intent.getIntExtra("ROUTE_REMAIN_DIS", 0));
+        // 高德会同时发「路线总剩余」和「到下一动作的剩余」两种 10001 帧。
+        // 总剩余帧的 ICON 往往是 20（顺行），用它会把匝道/转弯图标覆盖成直行。
+        // HUD 只认带 SEG_REMAIN_DIS 的动作帧。
+        if (!intent.hasExtra("SEG_REMAIN_DIS")) {
+            LogFile.i("HudFree", "nav route-only frame ignored icon=" + icon);
+            return;
+        }
+        int dist = intent.getIntExtra("SEG_REMAIN_DIS", 0);
         String road = intent.getStringExtra("NEXT_ROAD_NAME");
 
         // 高德有时只发 10001 数据，不发 10019/EXTRA_STATE=8。
@@ -139,7 +145,7 @@ public class NavBridge extends BroadcastReceiver {
         hasFrame = true;
         boolean ok = writer.nav(lastRoad, lastDist, lastDir, lastIdx, color);
         // CarPlay 的 1284 = [maneuverType, angle/22.5]，实车 mode 7 下能画箭头。
-        writer.arrow(maneuverType(icon), 0);
+        writer.arrow(maneuverType(icon), turnAngle(icon));
         LogFile.i("HudFree", "nav icon=" + icon + " type=" + pair[0] + " idx=" + pair[1]
                 + " road=" + road + " dist=" + dist + " ok=" + ok
                 + " err=" + writer.lastError());
@@ -157,29 +163,63 @@ public class NavBridge extends BroadcastReceiver {
     }
 
     /**
-     * 高德 ICON → 车机 1284 的 maneuverType。
-     * 实车验证：1=左转、2=右转（待逐个确认 3=直行、4=掉头）。
-     * 高德码表：0 直行、1 左转、2 左前、3 右转、4 右前、5 掉头、
-     * 6/7/13/15-21/23 直行类、8 右掉头、9/12 右前、10/11 左前、14 掉头。
+     * 高德车机广播 ICON → 车机 1284 的 maneuverType。
+     * 实车：2=90°左转；4=45°左前；5=45°右前；3=90°右转。
      */
     private static int maneuverType(int icon) {
         switch (icon) {
-            case 1:
-            case 2:
-            case 10:
-            case 11:
-                return 1;   // 左 / 左前
-            case 3:
-            case 4:
-            case 9:
-            case 12:
-                return 2;   // 右 / 右前
-            case 5:
-            case 8:
-            case 14:
-                return 4;   // 掉头
+            case 2:     // 左转 90°
+            case 4:     // 左前 45°
+            case 6:     // 左后
+            case 65:    // 靠左并线
+                return 1;
+            case 3:     // 右转 90°
+            case 5:     // 右前 45°
+            case 7:     // 右后
+            case 66:    // 靠右并线
+                return 2;
+            case 8:     // 掉头
+                return 4;
+            case 11:    // 进环岛
+            case 17:
+            case 18:
+            case 19:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+            case 25:
+            case 26:
+            case 27:
+            case 28:
+            case 12:    // 出环岛
+                return 6;   // 环岛专用图标
+            case 9:     // 直行
+            case 20:    // 顺行
+                return 3;
             default:
-                return 3;   // 直行
+                return 3;
+        }
+    }
+
+    /**
+     * 1284 的第二个字节是绝对方位角 / 22.5°。
+     * 前/后 45° 依次是 2/14、6/10；环岛和 90° 路口填 0。
+     */
+    private static int turnAngle(int icon) {
+        switch (icon) {
+            case 6:     // 左后 45°：225°/22.5°
+                return 10;
+            case 7:     // 右后 45°：135°/22.5°
+                return 6;
+            case 4:     // 左前 45°：315°/22.5°
+            case 65:    // 靠左并线
+                return 14;
+            case 5:     // 右前 45°：45°/22.5°
+            case 66:    // 靠右并线
+                return 2;
+            default:
+                return 0;
         }
     }
 

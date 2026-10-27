@@ -17,7 +17,7 @@ import android.os.IBinder;
  * 有导航时：HUD 显示高德的转向图标 / 路名 / 剩余距离（NavBridge 直接写）。
  * 没导航时：HUD 显示当前播放的歌名与歌手。
  *
- * 无校验、无联网、无自毁。歌词相关实现保留但未接线。
+ * 歌词相关实现保留但未接线。
  */
 public class HudService extends Service {
 

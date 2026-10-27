@@ -32,6 +32,15 @@ public class MainActivity extends Activity {
     private EditText etField;
     private EditText etValue;
     private TextView tvStatus;
+    private Button arrowTestButton;
+
+    private int arrowTestIndex = 0;
+    private static final String[] ARROW_TEST_NAMES = {
+            "90°左", "90°右", "左前45°", "右前45°",
+            "左后45°", "右后45°", "环岛", "掉头"
+    };
+    private static final int[] ARROW_TEST_TYPES = {1, 2, 1, 2, 1, 2, 6, 4};
+    private static final int[] ARROW_TEST_ANGLES = {0, 0, 14, 2, 10, 6, 0, 0};
 
     private final HudWriter mw = new HudWriter();
 
@@ -52,10 +61,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         LogFile.init(this);
 
-        int pad = dp(20);
+        int pad = dp(28);
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setPadding(pad, pad, pad, pad);
+
+        final LinearLayout mainPanel = new LinearLayout(this);
+        mainPanel.setOrientation(LinearLayout.VERTICAL);
+        final LinearLayout debugPanel = new LinearLayout(this);
+        debugPanel.setOrientation(LinearLayout.VERTICAL);
+        debugPanel.setVisibility(View.GONE);
 
         Button back = new Button(this);
         back.setText("← 返回");
@@ -68,31 +83,45 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams backLp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        root.addView(back, backLp);
+
+        LinearLayout topBar = new LinearLayout(this);
+        topBar.setOrientation(LinearLayout.HORIZONTAL);
+        topBar.addView(back, backLp);
+
+        View spacer = new View(this);
+        LinearLayout.LayoutParams spacerLp = new LinearLayout.LayoutParams(
+                0, 1, 1f);
+        topBar.addView(spacer, spacerLp);
+
+        Button settings = new Button(this);
+        settings.setText("设置");
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainPanel.setVisibility(View.GONE);
+                debugPanel.setVisibility(View.VISIBLE);
+            }
+        });
+        topBar.addView(settings, backLp);
+        mainPanel.addView(topBar, lp());
 
         TextView title = new TextView(this);
         title.setText("HUDdiy");
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        root.addView(title, lp());
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
+        mainPanel.addView(title, lp());
 
         TextView hint = new TextView(this);
         hint.setText("未导航时显示歌名与歌手\n"
                 + "日志：/data/data/io.github.hudfree/files/hud.log\n"
                 + "项目：github.com/yuxiuwen64-maker/HondaHUDdiy");
-        hint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        hint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         hint.setTextColor(Color.GRAY);
-        root.addView(hint, lp());
+        mainPanel.addView(hint, lp());
 
         swEnable = new Switch(this);
         swEnable.setText("开机自动运行");
-        swEnable.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        root.addView(swEnable, lp());
-
-        etProps = new EditText(this);
-        etProps.setHint("续航属性 ID，逗号分隔");
-        etProps.setInputType(InputType.TYPE_CLASS_TEXT);
-        etProps.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        root.addView(etProps, lp());
+        swEnable.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+        mainPanel.addView(swEnable, lp());
 
         Button save = new Button(this);
         save.setText("保存并启动");
@@ -102,7 +131,29 @@ public class MainActivity extends Activity {
                 saveAndStart();
             }
         });
-        root.addView(save, lp());
+        mainPanel.addView(save, lp());
+
+        Button debugBack = new Button(this);
+        debugBack.setText("← 返回");
+        debugBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                debugPanel.setVisibility(View.GONE);
+                mainPanel.setVisibility(View.VISIBLE);
+            }
+        });
+        debugPanel.addView(debugBack, lp());
+
+        TextView debugTitle = new TextView(this);
+        debugTitle.setText("设置");
+        debugTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        debugPanel.addView(debugTitle, lp());
+
+        etProps = new EditText(this);
+        etProps.setHint("续航属性 ID，逗号分隔");
+        etProps.setInputType(InputType.TYPE_CLASS_TEXT);
+        etProps.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        debugPanel.addView(etProps, lp());
 
         Button notifyAccess = new Button(this);
         notifyAccess.setText("授权通知访问（读歌名需要）");
@@ -115,7 +166,7 @@ public class MainActivity extends Activity {
                 }
             }
         });
-        root.addView(notifyAccess, lp());
+        debugPanel.addView(notifyAccess, lp());
 
         Button probe = new Button(this);
         probe.setText("探测续航 ID");
@@ -125,7 +176,7 @@ public class MainActivity extends Activity {
                 probeIds();
             }
         });
-        root.addView(probe, lp());
+        debugPanel.addView(probe, lp());
 
         Button diag = new Button(this);
         diag.setText("诊断");
@@ -135,7 +186,7 @@ public class MainActivity extends Activity {
                 diagnose();
             }
         });
-        root.addView(diag, lp());
+        debugPanel.addView(diag, lp());
 
         Button scan = new Button(this);
         scan.setText("扫描属性（找续航）");
@@ -145,19 +196,19 @@ public class MainActivity extends Activity {
                 scanProps();
             }
         });
-        root.addView(scan, lp());
+        debugPanel.addView(scan, lp());
 
         // ---- 手动写字段（现场调试用）----
         etField = new EditText(this);
         etField.setHint("字段 ID，如 1558");
         etField.setInputType(InputType.TYPE_CLASS_NUMBER);
-        etField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        root.addView(etField, lp());
+        etField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        debugPanel.addView(etField, lp());
 
         etValue = new EditText(this);
         etValue.setHint("值（字符串或 0-255）");
-        etValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        root.addView(etValue, lp());
+        etValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        debugPanel.addView(etValue, lp());
 
         Button wStr = new Button(this);
         wStr.setText("写字符串");
@@ -167,7 +218,7 @@ public class MainActivity extends Activity {
                 manualWrite(true);
             }
         });
-        root.addView(wStr, lp());
+        debugPanel.addView(wStr, lp());
 
         Button wByte = new Button(this);
         wByte.setText("写字节");
@@ -177,7 +228,7 @@ public class MainActivity extends Activity {
                 manualWrite(false);
             }
         });
-        root.addView(wByte, lp());
+        debugPanel.addView(wByte, lp());
 
         Button testNav = new Button(this);
         testNav.setText("自检：导航字段");
@@ -187,7 +238,7 @@ public class MainActivity extends Activity {
                 selfTest(false);
             }
         });
-        root.addView(testNav, lp());
+        debugPanel.addView(testNav, lp());
 
         Button testMusic = new Button(this);
         testMusic.setText("自检：音乐字段");
@@ -197,16 +248,29 @@ public class MainActivity extends Activity {
                 selfTest(true);
             }
         });
-        root.addView(testMusic, lp());
+        debugPanel.addView(testMusic, lp());
+
+        arrowTestButton = new Button(this);
+        arrowTestButton.setText("测试箭头：" + ARROW_TEST_NAMES[0]);
+        arrowTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextArrowTest();
+            }
+        });
+        debugPanel.addView(arrowTestButton, lp());
 
         tvStatus = new TextView(this);
-        tvStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         tvStatus.setTextColor(Color.DKGRAY);
+        root.addView(mainPanel);
+        root.addView(debugPanel);
         root.addView(tvStatus, lp());
 
         ScrollView scroll = new ScrollView(this);
         scroll.addView(root);
         setContentView(scroll);
+        applyLargeControls(root);
 
         swEnable.setChecked(Prefs.enabled(this));
         etProps.setText(Prefs.propIds(this));
@@ -305,10 +369,67 @@ public class MainActivity extends Activity {
         }, "selftest").start();
     }
 
+    /** 不依赖高德路线，逐次点按钮就能把 8 种箭头都打到仪表上。 */
+    private void nextArrowTest() {
+        // 测试时先停掉 HudService，避免高德/音乐刷新把测试帧覆盖掉。
+        stopService(new Intent(this, HudService.class));
+        if (!mw.ready()) {
+            tvStatus.setText("HUD 未连接，先点「保存并启动」");
+            return;
+        }
+        final int idx = arrowTestIndex;
+        final String name = ARROW_TEST_NAMES[idx];
+        final int type = ARROW_TEST_TYPES[idx];
+        final int angle = ARROW_TEST_ANGLES[idx];
+
+        tvStatus.setText("发送：" + name + " …");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean nav = mw.nav("TEST " + name, 350, 0, 0, 0);
+                boolean arrow = mw.arrow(type, angle);
+                final String msg = name + "  type=" + type + " angle=" + angle
+                        + "  nav=" + nav + " arrow=" + arrow
+                        + " err=" + mw.lastError();
+                LogFile.i("arrowtest", msg);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvStatus.setText(msg);
+                    }
+                });
+            }
+        }, "arrow-test").start();
+
+        arrowTestIndex = (idx + 1) % ARROW_TEST_NAMES.length;
+        arrowTestButton.setText("测试箭头：" + ARROW_TEST_NAMES[arrowTestIndex]);
+    }
+
     private static void sleep(long ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException ignored) {
+        }
+    }
+
+    /** 车机屏幕大，统一把按钮/输入框放大，避免手指点不准。 */
+    private void applyLargeControls(ViewGroup group) {
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof Button) {
+                ((Button) child).setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                child.setMinimumHeight(dp(80));
+                child.setPadding(dp(26), dp(12), dp(26), dp(12));
+            } else if (child instanceof EditText) {
+                ((EditText) child).setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                child.setMinimumHeight(dp(76));
+            } else if (child instanceof Switch) {
+                ((Switch) child).setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                child.setMinimumHeight(dp(76));
+            }
+            if (child instanceof ViewGroup) {
+                applyLargeControls((ViewGroup) child);
+            }
         }
     }
 

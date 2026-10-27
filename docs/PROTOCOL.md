@@ -75,7 +75,17 @@ Parcel 格式按 AIDL 生成代码：先 `writeInterfaceToken(DESCRIPTOR)`，再
 4 = 掉头
 ```
 
-`angle` 是出口角度 / 22.5，普通路口填 0。
+`angle` 是出口角度 / 22.5，普通 90° 路口填 0：
+
+```text
+右前 45°：type=2, angle=2
+左前 45°：type=1, angle=14
+右后 45°：type=2, angle=6
+左后 45°：type=1, angle=10
+靠右并线：type=2, angle=2
+靠左并线：type=1, angle=14
+环岛：type=6, angle=0
+```
 
 写导航的顺序：
 
