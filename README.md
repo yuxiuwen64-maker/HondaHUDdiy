@@ -9,6 +9,35 @@
 - 导航期间不显示歌曲；导航结束自动回到歌曲
 - 长距离（>1km）也显示路名
 
+## 效果
+
+真实车机实拍，导航：
+
+<table>
+<tr>
+  <td align="center"><img src="docs/images/nav-left.jpg" width="400"><br><sub>左转</sub></td>
+  <td align="center"><img src="docs/images/nav-right.jpg" width="400"><br><sub>右转</sub></td>
+</tr>
+<tr>
+  <td align="center"><img src="docs/images/nav-slight-left.jpg" width="400"><br><sub>左前 45°</sub></td>
+  <td align="center"><img src="docs/images/nav-slight-right.jpg" width="400"><br><sub>右前 45°</sub></td>
+</tr>
+<tr>
+  <td align="center"><img src="docs/images/nav-roundabout.jpg" width="400"><br><sub>进入环岛</sub></td>
+  <td align="center"><img src="docs/images/nav-roundabout-soon.jpg" width="400"><br><sub>即将进入环岛</sub></td>
+</tr>
+</table>
+
+未导航时显示歌名：
+
+<table>
+<tr>
+  <td align="center"><img src="docs/images/music-1.jpg" width="260"></td>
+  <td align="center"><img src="docs/images/music-2.jpg" width="260"></td>
+  <td align="center"><img src="docs/images/music-3.jpg" width="260"></td>
+</tr>
+</table>
+
 ## 目录
 
 ```text
