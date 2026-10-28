@@ -1,2 +1,2 @@
-6c46f67e57c4b2c6176f2e06355c44dc2c6f215855fc7e921f41aba109ffc6f6  release/HUDdiy.apk
-2eac493d7f79f093c97011fb09027acddac20f7f64eeaabee9c7940f7dcff6d6  release/HUDdiy-Magisk.zip
+3e5e25ccc8c8730bbfa1103a6c4ca5162de1eb320e92a9022d4acb2e4a44e6c5  release/HUDdiy.apk
+e357ae529d9c8fb0dc4459d7729352e6cb7a4e7d99ce78bcdda7e06f1266515e  release/HUDdiy-Magisk.zip

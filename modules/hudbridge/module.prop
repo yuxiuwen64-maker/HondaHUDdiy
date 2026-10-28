@@ -1,7 +1,7 @@
 id=hudbridge_diy
 name=hondahuddiy
-version=v1.7
-versionCode=8
+version=v1.8
+versionCode=9
 description=仪表显示导航与歌名（priv-app + 开机自启）｜项目：github.com/yuxiuwen64-maker/HondaHUDdiy
 
 

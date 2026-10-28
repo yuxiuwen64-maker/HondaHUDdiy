@@ -70,7 +70,7 @@ $manifest = $manifest -replace "<manifest ", "<manifest package=`"$Package`" "
 [System.IO.File]::WriteAllText("$build\AndroidManifest.xml", $manifest, (New-Object System.Text.UTF8Encoding $false))
 
 # 3. 链接资源 + 生成 R.java
-& "$bt\aapt2.exe" link -o "$build\base.apk" -I $androidJar --manifest "$build\AndroidManifest.xml" --java "$build\gen" --min-sdk-version 26 --target-sdk-version 29 --version-code 8 --version-name "1.7" "$build\res.zip"
+& "$bt\aapt2.exe" link -o "$build\base.apk" -I $androidJar --manifest "$build\AndroidManifest.xml" --java "$build\gen" --min-sdk-version 26 --target-sdk-version 29 --version-code 9 --version-name "1.8" "$build\res.zip"
 if ($LASTEXITCODE -ne 0) { throw "aapt2 link failed" }
 
 # 4. 编译 Java
