@@ -102,4 +102,4 @@ gradle :hud:assembleRelease
 
 ## 许可证
 
-MIT，见 [LICENSE](LICENSE)。
+AGPL-3.0，见 [LICENSE](LICENSE)。
