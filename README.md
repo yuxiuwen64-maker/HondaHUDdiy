@@ -1,5 +1,7 @@
 # honda hud diy
 
+把车机玩成砖不要找我，没有人逼着你用该项目，0玩机基础小白请勿听信ai胡说八道
+
 本田车机的 HUD 投屏应用，独立开源工程。
 
 项目地址：https://github.com/yuxiuwen64-maker/HondaHUDdiy
