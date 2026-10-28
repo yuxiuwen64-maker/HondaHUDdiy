@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# Copyright (C) 2026 yuxiuwen64-maker
+# SPDX-License-Identifier: AGPL-3.0-only
 # 不依赖 Magisk 的自动解压：自己解整包
 SKIPUNZIP=1
 ui_print "- 释放 HUD 应用"

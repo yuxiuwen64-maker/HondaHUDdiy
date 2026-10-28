@@ -102,4 +102,11 @@ gradle :hud:assembleRelease
 
 ## 许可证
 
-AGPL-3.0，见 [LICENSE](LICENSE)。
+Copyright (C) 2026 yuxiuwen64-maker
+
+本项目采用 [GNU Affero General Public License v3.0](LICENSE)（AGPL-3.0）。
+
+- 可以自由使用、修改、分发，包括商用
+- 分发修改版时必须以 AGPL-3.0 同样开源，并保留版权声明
+- 如果把修改版部署成网络服务供他人使用，必须向使用者提供完整源码
+- 完整源码地址：https://github.com/yuxiuwen64-maker/HondaHUDdiy

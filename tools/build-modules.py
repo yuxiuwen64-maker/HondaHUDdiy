@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (C) 2026 yuxiuwen64-maker
+# SPDX-License-Identifier: AGPL-3.0-only
 """把 modules/ 下的 Magisk 模块打包到 release/。
 
 hudbridge 需要模块根目录里有 HudBridge.apk；如果源码目录没有，

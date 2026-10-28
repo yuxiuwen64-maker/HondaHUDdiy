@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# Copyright (C) 2026 yuxiuwen64-maker
+# SPDX-License-Identifier: AGPL-3.0-only
 SKIPMOUNT=false
 LATESTARTSERVICE=true
 POSTFSDATA=false

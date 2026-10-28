@@ -1,3 +1,5 @@
+# Copyright (C) 2026 yuxiuwen64-maker
+# SPDX-License-Identifier: AGPL-3.0-only
 param(
     [Parameter(Mandatory = $true)][string]$Module,
     [Parameter(Mandatory = $true)][string]$Package,

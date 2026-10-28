@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 yuxiuwen64-maker
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 package io.github.hudfree;
 
 import android.content.Context;

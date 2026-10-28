@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# Copyright (C) 2026 yuxiuwen64-maker
+# SPDX-License-Identifier: AGPL-3.0-only
 # 开机后导出一份车机属性清单，并把 HUD 应用拉起来
 PKG=io.github.hudfree
 ACT=$PKG/.MainActivity
