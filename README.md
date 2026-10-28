@@ -104,7 +104,7 @@ gradle :hud:assembleRelease
 
 Copyright (C) 2026 yuxiuwen64-maker
 
-本项目采用 [GNU Affero General Public License v3.0](LICENSE)（AGPL-3.0）。
+本项目采用 [GNU Affero General Public License v3.0](LICENSE)，即 AGPL-3.0 **或更高版本**（`AGPL-3.0-or-later`）。
 
 - 可以自由使用、修改、分发，包括商用
 - 分发修改版时必须以 AGPL-3.0 同样开源，并保留版权声明

@@ -1,5 +1,5 @@
 # Copyright (C) 2026 yuxiuwen64-maker
-# SPDX-License-Identifier: AGPL-3.0-only
+# SPDX-License-Identifier: AGPL-3.0-or-later
 import sys, zipfile, shutil
 
 base, dex, out = sys.argv[1], sys.argv[2], sys.argv[3]
