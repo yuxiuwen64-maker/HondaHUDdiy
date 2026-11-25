@@ -118,3 +118,8 @@ Copyright (C) 2026 yuxiuwen64-maker
 - 分发修改版时必须以 AGPL-3.0 同样开源，并保留版权声明
 - 如果把修改版部署成网络服务供他人使用，必须向使用者提供完整源码
 - 完整源码地址：https://github.com/yuxiuwen64-maker/HondaHUDdiy
+
+
+-联系我？
+仅有以下渠道
+telegram@yuxw67
